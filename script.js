@@ -47,6 +47,56 @@ window.onload = function (){
                               break; 
 
           }
+
+          //Drawing the shapes on the canvases
+          if(filled[num-1]==false){
+              if(gameOver==false){
+                  if(turn%2 !=0){
+                     ctx.beginPath();
+                     ctx.moveTo(15,15);
+                     ctx.lineTo(85,85);
+                     ctx.moveTo(15,85);
+                     ctx.lineTo(85,15);
+                     ctx.strokeStyle = "dodgerblue";
+                     ctx.stroke();
+                     ctx.closePath();
+                     symbol[num -1] = 'X'
+                  }
+                  else{
+                    ctx.beginPath();
+                    ctx.arc(50,50,35,0,2*Math.PI,false);
+                    ctx.strokeStyle="dodgerblue";
+                    ctx.stroke();
+                    ctx.closePath();
+                    symbol[num-1] = '0';
+                  }
+                   turn++;
+                   filled[num-1]=true;
+
+                   //check winner
+                   var s=symbol[num -1];
+                   for(var j=0;j<winner.length;j++){
+                       if((symbol[winner[j][0]])==s && (symbol[winner[j][1]])==s && (symbol[winner[j][2]])==s){
+                           document.getElementById("result").innerHTML=
+                           "Player '"+s+"' Won!";
+                           gameOver=true;
+                       }
+                   }
+
+                   //check draw
+                   if(turn>9 && gameOver !=true){
+                    document.getElementById("result").innerHTML=
+                    "Game Over! It was a Draw!";
+                   }
+              }
+              else{
+                   alert("Game is Over. Please click on the New Game button to start again");
+              }
+
+          }
+          else {
+                   alert("This box was already filled. Please click on another one.");
+          }
       }
 
 
